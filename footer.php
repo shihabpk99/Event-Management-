@@ -85,5 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script>
+document.querySelectorAll('.clickable-image').forEach(img => {
+    img.addEventListener('click', function() {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        modal.style.display = "block";
+        modalImg.src = this.src;
+    });
+});
+document.querySelector(".close").addEventListener('click', function() {
+    document.getElementById("imageModal").style.display = "none";
+});
+</script>
+
+
 </body>
 </html>

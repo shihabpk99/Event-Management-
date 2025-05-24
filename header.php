@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +18,20 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="create_event.php">Create Event</a></li>
+            <li><a href="categorie_list.php">Categories</a></li>
             <li><a href="admin.php">Admin Panel</a></li>
+
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="user_page.php">My Events</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
+</header>
 
-   
+<button id="theme-toggle">🌓</button>
 
-    <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("theme-toggle");
     const prefersDark = localStorage.getItem("theme") === "dark";
@@ -31,9 +43,5 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 </script>
-
-</header>
-<button id="theme-toggle">🌓</button>
 </body>
 </html>
-

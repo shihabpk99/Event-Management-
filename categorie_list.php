@@ -30,7 +30,22 @@ if ($category_filter > 0) {
 $upcoming = mysqli_query($conn, $upcoming_sql);
 $past = mysqli_query($conn, $past_sql);
 ?>
-    <h2 class="section-title">📅 Upcoming Events</h2>
+
+<section class="home-section">
+    <h2 class="section-title">📂 Select Category</h2>
+    <form method="GET" style="margin: 20px;">
+        <label for="category">Category:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <option value="0">-- All Categories --</option>
+            <?php while ($cat = mysqli_fetch_assoc($cat_result)) : ?>
+                <option value="<?= $cat['id'] ?>" <?= $cat['id'] == $category_filter ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($cat['name']) ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
+    </form>
+
+    <h2 class="section-title"></h2>
     <div class="slideshow-container">
         <?php while($event = mysqli_fetch_assoc($upcoming)): ?>
             <div class="event-slide">
@@ -38,7 +53,6 @@ $past = mysqli_query($conn, $past_sql);
                 <div class="slide-details">
                     <h3><?= $event['event_name'] ?></h3>
                     <p><strong>Date:</strong> <?= $event['event_date'] ?> <br> <strong>Time:</strong> <?= $event['event_time'] ?></p>
-                    <p><strong>Location:</strong> <?= $event['location'] ?></p>
                     <p><?= $event['description'] ?></p>
                     <a class="join-btn" href="<?= $event['join_link'] ?>" target="_blank">Join Event</a>
                     <p><strong>Category:</strong> <?= htmlspecialchars($event['category_name']) ?></p>
@@ -46,22 +60,5 @@ $past = mysqli_query($conn, $past_sql);
             </div>
         <?php endwhile; ?>
     </div>
-
-    <h2 class="section-title">🕰️ Past Events</h2>
-    <div class="past-events">
-        <?php while($event = mysqli_fetch_assoc($past)): ?>
-            <div class="event-card">
-                <img src="<?= $event['photo'] ?>" alt="Event Photo" class="clickable-image">
-                <div class="event-info">
-                    <h3><?= $event['event_name'] ?></h3>
-                    <p><strong>Date:</strong> <?= $event['event_date'] ?> | <strong>Time:</strong> <?= $event['event_time'] ?></p>
-                    <p><strong>Location:</strong> <?= $event['location'] ?></p>
-                    <p><?= $event['description'] ?></p>
-                    <p><strong>Category:</strong> <?= htmlspecialchars($event['category_name']) ?></p>
-                </div>
-            </div>
-        <?php endwhile; ?>
-    </div>
-</section>
 
 <?php include 'footer.php'; ?>

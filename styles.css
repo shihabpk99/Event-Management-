@@ -212,50 +212,54 @@ nav a {
 }
 
 /* Hover Effects on Event Cards */
-.event-card,
-.event-slide {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.event-slide, .event-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.event-slide:hover, .event-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.clickable-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
     cursor: pointer;
+    border-radius: 8px;
 }
-
-.event-card:hover,
-.event-slide:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-/* Modal Base */
 .image-modal {
     display: none;
     position: fixed;
-    z-index: 1000;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s ease;
+    z-index: 9999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.8);
 }
-
-.image-modal.opening {
-    animation: zoomIn 0.3s ease;
+.image-modal img {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
 }
-
-.modal-content {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-    cursor: grab;
-}
-
-.close-modal {
+.image-modal .close {
     position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
+    top: 30px;
+    right: 50px;
     color: #fff;
+    font-size: 40px;
     font-weight: bold;
     cursor: pointer;
 }
+
 
 /* Arrows */
 .nav-arrow {
@@ -325,4 +329,102 @@ footer {
 
 .reject-btn:hover {
     background-color: #c82333;
+}
+
+
+/*Login and Register*/
+form select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 3px solid #f1c5c5;
+    margin-left: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.959);
+}
+.auth-container {
+    max-width: 400px;
+    margin: 30px auto;
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.auth-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #0057d9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
+    background-color: #0041a3;
+}
+
+/* User Events */
+.user-events-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.event-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-details h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.event-details p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #b02a37;
 }

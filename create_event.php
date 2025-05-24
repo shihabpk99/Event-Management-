@@ -1,52 +1,80 @@
-<?php include 'header.php';
+<?php
+session_start();
+include 'db.php';
 
-// Database connection
-$servername ="localhost";
-$username = "root";
-$password = "";
-$dbname = "events_management";
+$_SESSION['redirect_after_login'] = 'create_event.php';
+include 'header.php';
 
-
-try{
-$conn = new mysqli($servername,$username, $password, $dbname);
-echo"";
-}
-catch(mysqli_sql_exception){
-    echo"<h1>Faild to connect Database. </h1> ";
+if (!isset($_SESSION['user_id'])) {
+    echo '<h2>Please login or register to create an event</h2>';
+    include 'auth.php';
+    include 'footer.php';
+    exit;
 }
 
-
-
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = $_POST['event_name'];
-    $date = $_POST['event_date'];
-    $time = $_POST['event_time'];
-    $loc = $_POST['location'];
-    $desc = $_POST['description'];
-    $link = $_POST['join_link'];
+// Handle event submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $event_name = $_POST['name'];
+    $datetime = $_POST['time'];
+    $event_date = date('Y-m-d', strtotime($datetime));
+    $event_time = date('H:i:s', strtotime($datetime));
+    $location = $_POST['location'];
+    $description = $_POST['description'];
+    $join_link = $_POST['join_link'];
+    $category_id = $_POST['category_id'];
+    $user_id = $_SESSION['user_id'];
 
     $photo = $_FILES['photo']['name'];
-    $path = "uploads/" . basename($photo);
-    move_uploaded_file($_FILES['photo']['tmp_name'], $path);
+    $temp = $_FILES['photo']['tmp_name'];
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($photo);
 
-    $conn->query("INSERT INTO events (event_name, event_date, event_time, location, description, join_link, photo)
-        VALUES ('$name', '$date', '$time', '$loc', '$desc', '$link', '$path')");
-
-    echo "<p>Event submitted for admin approval.</p>";
+    if (move_uploaded_file($temp, $target_file)) {
+        $query = "INSERT INTO events (event_name, event_date, event_time, location, description, join_link, photo, is_approved, category_id, user_id)
+                  VALUES ('$event_name', '$event_date', '$event_time', '$location', '$description', '$join_link', '$target_file', 0, '$category_id', '$user_id')";
+        if (mysqli_query($conn, $query)) {
+            echo "<script>alert('Event created successfully! Waiting for admin approval.');</script>";
+        } else {
+            echo "<script>alert('Database error: " . mysqli_error($conn) . "');</script>";
+        }
+    } else {
+        echo "<script>alert('Failed to upload image.');</script>";
+    }
 }
+
+// Fetch categories
+$cat_result = mysqli_query($conn, "SELECT * FROM categories");
 ?>
 
 <h2>Create a New Event</h2>
 <form method="POST" enctype="multipart/form-data">
-    <input type="text" name="event_name" placeholder="Event Name" required>
-    <input type="date" name="event_date" required>
-    <input type="time" name="event_time" required>
-    <input type="text" name="location" placeholder="Location" required>
-    <textarea name="description" placeholder="Event Description" required></textarea>
-    <input type="url" name="join_link" placeholder="Join Link (optional)">
+    <label>Event Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Date & Time:</label>
+    <input type="datetime-local" name="time" required>
+
+    <label>Location:</label>
+    <input type="text" name="location" required>
+
+    <label>Description:</label>
+    <textarea name="description" required></textarea>
+
+    <label>Join Link:</label>
+    <input type="url" name="join_link" required>
+
+    <label>Category:</label>
+    <select name="category_id" required>
+        <option value="">-- Select Category --</option>
+        <?php while ($cat = mysqli_fetch_assoc($cat_result)) : ?>
+            <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+        <?php endwhile; ?>
+    </select>
+
+    <label>Template Photo:</label>
     <input type="file" name="photo" required>
-    <button type="submit">Submit Event</button>
+
+    <button type="submit" class="confirm-btn">Submit</button>
 </form>
 
 <?php include 'footer.php'; ?>

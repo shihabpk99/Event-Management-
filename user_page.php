@@ -43,7 +43,7 @@ $events = mysqli_query($conn, "SELECT * FROM events WHERE user_id = $user_id ORD
                     <p><strong>Status:</strong> <?= $event['is_approved'] ? '✅ Approved' : '⏳ Pending' ?></p>
                 </div>
 
-                <form method="GET" style="margin-left: 20px;">
+                <form method="GET" style="margin-left: 20px;" onsubmit="return confirm('Are you sure you want to delete this event?');">
                     <input type="hidden" name="delete" value="<?= $event['id'] ?>">
                     <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; padding:8px 12px; border-radius:5px; cursor:pointer;">Delete</button>
                 </form>

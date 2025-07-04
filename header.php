@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
+<header id="header1">
     <h1>VU Events Management</h1>
 
     <nav class="navbar">
@@ -29,8 +29,8 @@ if (session_status() === PHP_SESSION_NONE) {
     </nav>
 </header>
 
+<!--
 <button id="theme-toggle">🌓</button>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("theme-toggle");
@@ -43,5 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 </script>
+-->
 </body>
 </html>

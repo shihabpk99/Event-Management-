@@ -7,16 +7,24 @@ body {
 header {
     background: #003366;
     padding: 20px;
-    color: white;
+    color: rgb(214, 84, 84);
+    text-align: center;
+}
+
+#header1 {
+    background-color: #cf5b17;
+    color: #fff;
+    padding: 20px 0;
     text-align: center;
 }
 
 .navbar {
     display: flex;
     justify-content: center;
-    background: #444;
+    background: #c0b5b5;
     padding: 10px;
 }
+
 .navbar ul {
     list-style: none;
     padding: 0;
@@ -29,10 +37,10 @@ header {
 }
 
 .navbar ul li a {
-    color: #fff;
+    color: #504c4c;
     text-decoration: none;
     padding: 10px 20px;
-    background: #555;
+    background: #c2a7a7;
     border-radius: 5px;
     transition: background 0.3s;
 }
@@ -41,17 +49,16 @@ header {
     background: #3e72c0;
 }
 
-
 main {
     padding: 20px;
 }
-#theme-toggle{
+
+#theme-toggle {
     position: fixed;
     top: 30px;
     left: 90%;
     cursor: pointer;
     background-color: #555;
-   
     font-size: 16px;
 }
 
@@ -100,7 +107,7 @@ button {
     border: 1px solid #ccc;
     scroll-snap-align: center;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
 }
@@ -113,6 +120,10 @@ button {
 
 .slide-details {
     padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .join-btn {
@@ -139,7 +150,7 @@ button {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 12px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
@@ -221,10 +232,12 @@ nav a {
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .event-slide:hover, .event-card:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
+
 .clickable-image {
     width: 100%;
     max-height: 200px;
@@ -232,6 +245,7 @@ nav a {
     cursor: pointer;
     border-radius: 8px;
 }
+
 .image-modal {
     display: none;
     position: fixed;
@@ -244,12 +258,14 @@ nav a {
     overflow: auto;
     background: rgba(0,0,0,0.8);
 }
+
 .image-modal img {
     margin: auto;
     display: block;
     max-width: 80%;
     max-height: 80%;
 }
+
 .image-modal .close {
     position: absolute;
     top: 30px;
@@ -259,7 +275,6 @@ nav a {
     font-weight: bold;
     cursor: pointer;
 }
-
 
 /* Arrows */
 .nav-arrow {
@@ -289,8 +304,6 @@ nav a {
     to { background-color: rgba(0,0,0,0.85); }
 }
 
-
-
 footer {
     text-align: center;
     padding: 15px;
@@ -298,7 +311,6 @@ footer {
     color: white;
     margin-top: 30px;
 }
-
 
 .confirm-btn {
     background-color: #28a745;
@@ -321,8 +333,7 @@ footer {
     border-radius: 8px;
     margin-left: 10px;
     cursor: pointer;
-
-    position: relative; 
+    position: relative;
     bottom: 40px;
     right: -200px;
 }
@@ -330,7 +341,6 @@ footer {
 .reject-btn:hover {
     background-color: #c82333;
 }
-
 
 /*Login and Register*/
 form select {
@@ -341,6 +351,7 @@ form select {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.959);
 }
+
 .auth-container {
     max-width: 400px;
     margin: 30px auto;
@@ -388,18 +399,6 @@ form select {
     padding: 20px;
 }
 
-.event-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .event-details {
     flex: 1;
 }
@@ -427,4 +426,54 @@ form select {
 
 .delete-btn:hover {
     background-color: #b02a37;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.view-more-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+    background-color: #0056b3;
 }

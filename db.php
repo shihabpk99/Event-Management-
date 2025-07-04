@@ -5,6 +5,7 @@ $password = "";
 $dbname = "events_management";
 
 
+
 try{
 $conn = new mysqli($servername,$username, $password, $dbname);
 echo"";
